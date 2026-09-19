@@ -12,7 +12,7 @@ function isPublicRoute(pathname: string): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const supabase = createMiddlewareClient(request);
+  const { supabase, response } = createMiddlewareClient(request);
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
       redirectUrl.search = "";
       return NextResponse.redirect(redirectUrl);
     }
-    return NextResponse.next();
+    return response;
   }
 
   if (!session) {
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
