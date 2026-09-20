@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase/client";
-import type { Permission } from "@/lib/rbac/permissions";
+import { PERMISSIONS, type Permission } from "@/lib/rbac/permissions";
 import type { Database } from "@/lib/types/database";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
@@ -54,6 +54,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       (ur) => ur.roles.code
     ) ?? [];
     setRoles(roleCodes);
+
+    if (roleCodes.includes("super_admin")) {
+      setPermissions([...PERMISSIONS]);
+      return;
+    }
 
     if (roleCodes.length > 0) {
       const { data: rolePerms } = await supabase

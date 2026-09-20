@@ -4,8 +4,10 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
+  swcMinify: false,
   webpack: (config) => {
     config.cache = false;
+    config.parallelism = 1;
     return config;
   },
 };

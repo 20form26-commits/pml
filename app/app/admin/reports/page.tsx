@@ -415,7 +415,7 @@ function PaymentsReport({ institutionId, academicYearId }: { institutionId: stri
 
         const { data: installments } = await supabase
           .from("installments")
-          .select("amount_due, amount_paid")
+          .select("id, amount_due, amount_paid")
           .in("payment_plan_id", planIds);
         const totalDue = (installments ?? []).reduce((s, i) => s + Number(i.amount_due), 0);
         const totalPaid = (installments ?? []).reduce((s, i) => s + Number(i.amount_paid), 0);
