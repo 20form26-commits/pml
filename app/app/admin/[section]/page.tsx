@@ -20,10 +20,10 @@ const SECTION_MAP: Record<string, { title: string; description: string; permissi
   settings: { title: "Paramètres", description: "Configuration de l'établissement", permission: "settings.view" },
 };
 
-export default function AdminSectionPage({ params }: { params: { section: string[] } }) {
+export default function AdminSectionPage({ params }: { params: { section: string | string[] } }) {
   const { permissions } = useAuth();
   const pathname = usePathname();
-  const section = params.section?.[0] ?? "";
+  const section = Array.isArray(params.section) ? (params.section[0] ?? "") : (params.section ?? "");
   const config = SECTION_MAP[section];
 
   if (!config) {
