@@ -16,6 +16,22 @@ const STUDENT_STATUS_MAP: Record<string, { label: string; variant: "default" | "
   expelled: { label: "Exclu", variant: "destructive" },
 };
 
+const TEACHER_STATUS_MAP: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
+  active: { label: "Actif", variant: "default" },
+  inactive: { label: "Inactif", variant: "outline" },
+  on_leave: { label: "En congé", variant: "secondary" },
+};
+
+export function TeacherStatusBadge({ status }: { status: string }) {
+  const config = TEACHER_STATUS_MAP[status] ?? { label: status, variant: "outline" as const };
+  return <Badge variant={config.variant}>{config.label}</Badge>;
+}
+
+export const TEACHER_STATUS_OPTIONS = Object.entries(TEACHER_STATUS_MAP).map(([value, { label }]) => ({
+  value,
+  label,
+}));
+
 export function ApplicantStatusBadge({ status }: { status: string }) {
   const config = APPLICANT_STATUS_MAP[status] ?? { label: status, variant: "outline" as const };
   return <Badge variant={config.variant}>{config.label}</Badge>;

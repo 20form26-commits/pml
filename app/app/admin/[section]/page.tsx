@@ -7,7 +7,6 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { usePathname } from "next/navigation";
 
 const SECTION_MAP: Record<string, { title: string; description: string; permission: string }> = {
-  teachers: { title: "Formateurs", description: "Gestion des formateurs", permission: "teachers.view" },
   schedules: { title: "Planning", description: "Gestion de l'emploi du temps", permission: "schedules.view" },
   attendance: { title: "Présences", description: "Gestion des présences et absences", permission: "attendance.view" },
   grades: { title: "Notes", description: "Gestion des notes et bulletins", permission: "grades.view" },
